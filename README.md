@@ -1,2 +1,3 @@
-# metro_nav
-Awesome ROS packages to complement Navigation2
+# base2d_kinematics
+
+Based in part on [`dwb_plugins::KinematicParameters`](https://github.com/locusrobotics/robot_navigation/tree/noetic/dwb_plugins)
