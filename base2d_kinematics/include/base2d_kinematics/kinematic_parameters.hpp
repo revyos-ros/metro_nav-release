@@ -37,13 +37,13 @@
 
 #pragma once
 
-#include <kinematics_2d_msgs/msg/kinematics2_d.hpp>
+#include <base2d_kinematics_msgs/msg/base2_d_kinematics.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/pose2_d.hpp>
 #include <nav_2d_msgs/msg/twist2_d.hpp>
 #include <memory>
 
-namespace kinematics_2d
+namespace base2d_kinematics
 {
 const double EPSILON = 1E-5;
 
@@ -119,7 +119,7 @@ class KinematicParameters
 public:
   KinematicParameters();
 
-  void initialize(const kinematics_2d_msgs::msg::Kinematics2D& msg);
+  void initialize(const base2d_kinematics_msgs::msg::Base2DKinematics& msg);
   void initialize(const rclcpp::Node::SharedPtr& node, const std::string& param_prefix = "");
 
   inline double getMinX()
@@ -182,7 +182,7 @@ public:
     return min_speed_theta_;
   }
 
-  kinematics_2d_msgs::msg::Kinematics2D toMsg() const;
+  base2d_kinematics_msgs::msg::Base2DKinematics toMsg() const;
 
   void startPublisher(const rclcpp::Node::SharedPtr& node);
   void startSubscriber(const rclcpp::Node::SharedPtr& node);
@@ -232,7 +232,7 @@ public:
   using Ptr = std::shared_ptr<KinematicParameters>;
 
 protected:
-  void kinematicsCB(const kinematics_2d_msgs::msg::Kinematics2D::SharedPtr msg)
+  void kinematicsCB(const base2d_kinematics_msgs::msg::Base2DKinematics::SharedPtr msg)
   {
     initialize(*msg);
   }
@@ -249,8 +249,8 @@ protected:
   // Cached square values of min_speed_xy and max_speed_xy
   double min_speed_xy_sq_, max_speed_xy_sq_;
 
-  rclcpp::Subscription<kinematics_2d_msgs::msg::Kinematics2D>::SharedPtr kinematics_sub_{nullptr};
-  rclcpp::Publisher<kinematics_2d_msgs::msg::Kinematics2D>::SharedPtr kinematics_pub_{nullptr};
+  rclcpp::Subscription<base2d_kinematics_msgs::msg::Base2DKinematics>::SharedPtr kinematics_sub_{nullptr};
+  rclcpp::Publisher<base2d_kinematics_msgs::msg::Base2DKinematics>::SharedPtr kinematics_pub_{nullptr};
   rclcpp::Node::SharedPtr node_{nullptr};
 };
-}  // namespace kinematics_2d
+}  // namespace base2d_kinematics

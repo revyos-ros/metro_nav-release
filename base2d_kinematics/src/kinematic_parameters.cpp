@@ -35,10 +35,10 @@
 
 /* Author: David V. Lu!! */
 
-#include <kinematics_2d/kinematic_parameters.hpp>
+#include <base2d_kinematics/kinematic_parameters.hpp>
 #include <cmath>
 
-namespace kinematics_2d
+namespace base2d_kinematics
 {
 
 KinematicParameters::KinematicParameters()
@@ -48,7 +48,7 @@ KinematicParameters::KinematicParameters()
 {
 }
 
-void KinematicParameters::initialize(const kinematics_2d_msgs::msg::Kinematics2D& msg)
+void KinematicParameters::initialize(const base2d_kinematics_msgs::msg::Base2DKinematics& msg)
 {
   min_vel_x_ = msg.min_vel_x;
   max_vel_x_ = msg.max_vel_x;
@@ -137,23 +137,23 @@ void KinematicParameters::initialize(const rclcpp::Node::SharedPtr& node, const 
 
 void KinematicParameters::startPublisher(const rclcpp::Node::SharedPtr& node)
 {
-  kinematics_pub_ =
-      node->create_publisher<kinematics_2d_msgs::msg::Kinematics2D>("kinematics_2d",
-                                                                    // Transient local is similar to latching in ROS 1.
-                                                                    rclcpp::QoS(1).transient_local());
+  kinematics_pub_ = node->create_publisher<base2d_kinematics_msgs::msg::Base2DKinematics>(
+      "base2d_kinematics",
+      // Transient local is similar to latching in ROS 1.
+      rclcpp::QoS(1).transient_local());
   kinematics_pub_->publish(toMsg());
 }
 
 void KinematicParameters::startSubscriber(const rclcpp::Node::SharedPtr& node)
 {
-  kinematics_sub_ = node->create_subscription<kinematics_2d_msgs::msg::Kinematics2D>(
-      "kinematics_2d", rclcpp::QoS(1).transient_local(),
+  kinematics_sub_ = node->create_subscription<base2d_kinematics_msgs::msg::Base2DKinematics>(
+      "base2d_kinematics", rclcpp::QoS(1).transient_local(),
       std::bind(&KinematicParameters::kinematicsCB, this, std::placeholders::_1));
 }
 
-kinematics_2d_msgs::msg::Kinematics2D KinematicParameters::toMsg() const
+base2d_kinematics_msgs::msg::Base2DKinematics KinematicParameters::toMsg() const
 {
-  kinematics_2d_msgs::msg::Kinematics2D msg;
+  base2d_kinematics_msgs::msg::Base2DKinematics msg;
   msg.min_vel_x = min_vel_x_;
   msg.max_vel_x = max_vel_x_;
   msg.min_vel_y = min_vel_y_;
@@ -238,4 +238,4 @@ bool KinematicParameters::isValidSpeed(double x, double y, double theta)
   return true;
 }
 
-}  // namespace kinematics_2d
+}  // namespace base2d_kinematics

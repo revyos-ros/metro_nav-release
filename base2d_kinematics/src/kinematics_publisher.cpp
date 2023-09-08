@@ -34,26 +34,18 @@
 
 /* Author: David V. Lu!! */
 
-#pragma once
-
+#include <base2d_kinematics/kinematic_parameters.hpp>
 #include <rclcpp/rclcpp.hpp>
-#include <nav_2d_msgs/msg/twist2_d.hpp>
-#include <random>
 
-namespace kinematics_2d
+int main(int argc, char* argv[])
 {
-class NoiseModel
-{
-public:
-  NoiseModel(double mean_x, double stddev_x, double mean_y, double stddev_y, double mean_theta, double stddev_theta);
-  NoiseModel(const std::vector<double>& six_params);
-  NoiseModel(const rclcpp::Node::SharedPtr& node, const std::string& param_prefix = "");
+  rclcpp::init(argc, argv);
+  rclcpp::Node::SharedPtr node = std::make_shared<rclcpp::Node>("kinematics_publisher");
 
-  virtual nav_2d_msgs::msg::Twist2D applyNoise(const nav_2d_msgs::msg::Twist2D& base);
+  base2d_kinematics::KinematicParameters kp;
+  kp.initialize(node);
+  kp.startPublisher(node);
 
-  std::array<double, 36> getCovarianceMatrix() const;
-
-protected:
-  std::normal_distribution<double> noise_x_, noise_y_, noise_theta_;
-};
-}  // namespace kinematics_2d
+  rclcpp::spin(node);
+  return 0;
+}

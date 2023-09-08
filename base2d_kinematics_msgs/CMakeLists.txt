@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
-project(kinematics_2d_msgs)
+project(base2d_kinematics_msgs)
 
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
-    msg/Kinematics2D.msg
+    msg/Base2DKinematics.msg
 )
 ament_export_dependencies(rosidl_default_runtime)
 
