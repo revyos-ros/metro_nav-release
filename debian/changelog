@@ -1,0 +1,15 @@
+ros-humble-base2d-kinematics-msgs (0.2.0-1jammy) jammy; urgency=high
+
+  * Rename packages (#2 <https://github.com/MetroRobots/metro_nav/issues/2>)
+  * Contributors: David V. Lu!!
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 08 Sep 2023 04:00:00 -0000
+
+ros-humble-base2d-kinematics-msgs (0.1.0-1jammy) jammy; urgency=high
+
+  * Initial kinematics_2d_msgs and kinematics_2d packages
+  * Contributors: David V. Lu
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 29 Aug 2023 04:00:00 -0000
+
+
